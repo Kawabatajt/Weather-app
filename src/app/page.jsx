@@ -12,7 +12,7 @@ const SearchButton = () => {
 };
 const Card = () => {
   return (
-    <div className="mt-[50px]">
+    <div className="mt-[50px] ">
       <div
         className={`${manrope.className} text-slate-900 w-[414px] h-[828px] rounded-[48px] bg-white  ml-10 pt-[70px] `}
       >
@@ -45,7 +45,7 @@ const CardRight = () => {
       <div
         className={`${manrope.className} text-slate-900 w-[414px] h-[828px] rounded-[48px] bg-[#111827BF] opacity-75  `}
       >
-        <div className="w-[404px] h-[504px] bg-gradient-to-b from-[#1F2937] to-[#111827] rounded-[42px] mx-auto pt-10 mb-0">
+        <div className="w-[404px] h-[504px] bg-gradient-to-b from-[#1F2937] to-[#111827] rounded-[42px] mx-auto pt-[100px] mb-0">
           <h1 className="text-[48px] text-white font-extrabold ml-[40px]">
             Krakow
           </h1>
@@ -54,7 +54,6 @@ const CardRight = () => {
             className="w-[262px] h-[262px] mx-auto mt-[40px]"
           />
         </div>
-
         <h1 className="text-[144px] font-extrabold ml-[40px] mb-0 text-white text-transparent bg-clip-text bg-gradient-to-b from-[#F9FAFB]">
           17°
         </h1>
@@ -85,13 +84,17 @@ export default function Home() {
   //     });
   // });
   return (
-    <div className="w-screen h-screen mx-auto bg-slate-800">
+    <div className="w-screen h-full mx-auto bg-slate-800">
       <div className="w-3/4 h-screen mx-auto rounded-3xl bg-background-white flex justify-center gap-[100px]">
-        <div className="mt-6 ml-[40px]">
+      
+      <img className="absolute right-[50%] bottom-[33%] w-[50px]" src="/logo-left.png"/>
+      <img className="absolute right-[47%] bottom-[33%] w-[50px]" src="/logo-right.png"/>
+       
+        <div className="mt-6 ml-[140px] relative">
           <SearchButton />
           <Card />
         </div>
-        <div className="w-[50%] bg-[#0F141E] h-screen flex justify-center items-center ml-20">
+        <div className="w-[50%] bg-[url('/Subtract.png')] h-screen flex justify-center items-center ml-20">
           <CardRight />
         </div>
       </div>
