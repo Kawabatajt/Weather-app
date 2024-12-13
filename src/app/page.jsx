@@ -21,42 +21,74 @@ const BackGroundCircle = () => {
     </div>
   );
 };
-
-const SearchButton = ({value}) => {
-  const [city, setCity] = useState();
+const apiKey = "358f72950feb453d5adf7c57e441e1ec";
+const SearchButton = ({ search, onChangeText, onPressEnter }) => {
   return (
     <div>
-      <input onChange={(e)=>setCity(e.target.value)} value={city} className="w-[400px] h-10 rounded-3xl border-solid border-slate-950 bg-white ml-10 drop-shadow-lg"></input>
+      <input
+        onChange={onChangeText}
+        value={search}
+        onKeyDown={onPressEnter}
+        className="w-[400px] h-10 rounded-3xl border-solid border-slate-950 bg-white ml-10 drop-shadow-lg"
+      ></input>
     </div>
   );
 };
-const Card = ({ value, temperature, status }) => {
-  const [data, setData] = useState();
-  useEffect(() => {
- fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=Ulaanbaatar&units=metric&appid=358f72950feb453d5adf7c57e441e1ec`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        console.log(data)
-      });
-  });
+const Card = ({ value, temperature, status, city }) => {
   const backgroundColor = value === "day" ? "bg-white" : "bg-[#111827BF]";
+  const getDayImage = (status) => {
+    switch (status) {
+      case "Sunny":
+        return "sun-icon.png";
+      case "Overcast" || "Clouds":
+        return "Day Clouds.png";
+      case "Heavy rain" || "Light rain":
+        return "Day Rain.png";
+      case "Wind":
+        return "Day Wind.png";
+      case "Snow":
+        return "Day Snow.png";
+      case "Storm":
+        return "Day Storm.png";
+      default:
+        return "sun-icon.png";
+    }
+  };
+  const getNightImage = (status) => {
+    switch (status) {
+      case "Clear":
+        return "moon.png";
+      case "Cloudy":
+        return "Night Clouds.png";
+      case "Patchy light rain":
+        return "Night Rain.png";
+      case "Wind":
+        return "Night Wind.png";
+      case "Snow":
+        return "Night Snow";
+      case "Storm":
+        return "Night Storm.png";
+      default:
+        return "moon.png";
+    }
+  };
   const imageBackground =
     value === "night"
       ? "bg-gradient-to-b from-[#1F2937] to-[#111827]"
       : "bg-white";
-  const imageUrl = value === "day" ? "/sun-icon.png" : "/moon.png";
+  const imageUrl =
+    value === "day" ? getDayImage(status) : getNightImage(status);
   const textGradient =
     value === "day"
       ? "bg-gradient-to-b from-[#111827] to-[#6B7280]"
       : "bg-gradient-to-b from-[#F9FAFB] to-[#000000]";
   const textColor = value === "night" ? "text-white" : "text-[#111827]";
-  const imageShadow = (value = "night"
-    ? "drop-shadow-[0px_5px_25px_rgba(255,255,255,0.5)]"
-    : "drop-shadow-[0px_5px_25px_rgba(0,0,0,0.5)]");
+  const imageShadow =
+    value === "night"
+      ? "drop-shadow-[0px_5px_25px_rgba(255,255,255,0.5)]"
+      : "drop-shadow-[0px_5px_25px_rgba(0,0,0,0.5)]";
   const statusColor = value === "day" ? "text-[#FF8E27]" : "text-[#777CCE]";
+  console.log(value);
   return (
     <div className="mt-[50px] z-10">
       <div
@@ -68,7 +100,7 @@ const Card = ({ value, temperature, status }) => {
           <h1
             className={`text-[48px] text-[#111827] font-extrabold ml-[40px] ${textColor}`}
           >
-            Kraków
+            {city}
           </h1>
           <img
             src={imageUrl}
@@ -95,6 +127,46 @@ const Card = ({ value, temperature, status }) => {
   );
 };
 export default function Home() {
+  const [search, setSearch] = useState("");
+  const [city, setCity] = useState("ulaanbaatar");
+
+  const onChangeText = (event) => {
+    setSearch(event.target.value);
+  };
+  const onPressEnter = (e) => {
+    if (e.code === "Enter") {
+      setCity(search);
+    }
+  };
+  const [data, setData] = useState();
+  const [dayTemp, setDayTemp] = useState({
+    temperature: 0,
+    condition: "",
+  });
+  const [nightTemp, setNightTemp] = useState({
+    temperature: 0,
+    condition: "",
+  });
+  useEffect(() => {
+    fetch(
+      `http://api.weatherapi.com/v1/forecast.json?key=a67f1e26cad343d69cd85305241312&q=${city}&days=1&aqi=no&alerts=no`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+        console.log(data);
+        setDayTemp({
+          temperature: data?.forecast?.forecastday[0].day.maxtemp_c,
+          condition: data?.forecast?.forecastday[0].day.condition.text,
+        });
+        setNightTemp({
+          temperature: data?.forecast?.forecastday[0].day.mintemp_c,
+          condition: data?.forecast?.forecastday[0].hour[23].condition.text,
+        });
+        console.log(data);
+      });
+  }, [city]);
+
   return (
     <div className="w-screen h-full mx-auto bg-slate-800 relative flex justify-center items-center ">
       <div className="w-3/4 h-screen mx-auto rounded-3xl bg-background-white flex justify-center gap-[100px] overflow-hidden relative">
@@ -108,11 +180,29 @@ export default function Home() {
         />
 
         <div className="mt-[100px] ml-[140px] relative z-10">
-          <SearchButton />
-          <Card value="day" temperature="26°" status="Bright" />
+          <SearchButton
+            search={search}
+            onChangeText={onChangeText}
+            onPressEnter={onPressEnter}
+          />
+          {dayTemp && (
+            <Card
+              value="day"
+              temperature={Math.round(dayTemp.temperature)}
+              status={dayTemp.condition.trim()}
+              city={city}
+            />
+          )}
         </div>
         <div className="w-[50%] bg-[url('/Subtract.png')] bg-no-repeat bg-center h-screen flex justify-center items-center ml-[200px]">
-          <Card value="night" temperature="17°" status="Clear" />
+          {nightTemp && (
+            <Card
+              value="night"
+              temperature={Math.round(nightTemp.temperature)}
+              status={nightTemp.condition.trim()}
+              city={city}
+            />
+          )}
         </div>
         <BackGroundCircle />
       </div>
