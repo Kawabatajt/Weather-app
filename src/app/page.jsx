@@ -21,23 +21,25 @@ const BackGroundCircle = () => {
     </div>
   );
 };
-const SearchButton = () => {
+
+const SearchButton = ({value}) => {
+  const [city, setCity] = useState();
   return (
     <div>
-      <input className="w-[400px] h-10 rounded-3xl border-solid border-slate-950 bg-white ml-10 drop-shadow-lg"></input>
+      <input onChange={(e)=>setCity(e.target.value)} value={city} className="w-[400px] h-10 rounded-3xl border-solid border-slate-950 bg-white ml-10 drop-shadow-lg"></input>
     </div>
   );
 };
 const Card = ({ value, temperature, status }) => {
-  const [city, setCity] = useState();
   const [data, setData] = useState();
   useEffect(() => {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=358f72950feb453d5adf7c57e441e1ec`
+ fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=Ulaanbaatar&units=metric&appid=358f72950feb453d5adf7c57e441e1ec`
     )
       .then((res) => res.json())
       .then((data) => {
         setData(data);
+        console.log(data)
       });
   });
   const backgroundColor = value === "day" ? "bg-white" : "bg-[#111827BF]";
