@@ -60,6 +60,7 @@ const Card = ({ value, temperature, status, city, date }) => {
       : "drop-shadow-[0px_5px_25px_rgba(0,0,0,0.5)]";
   const statusColor = value === "day" ? "text-[#FF8E27]" : "text-[#777CCE]";
   const dateColor = value === "day" ? "text-black" : "text-[#9CA3AF]";
+  const homeIconColor = value === "day" ? "black" : "white";
   console.log(value);
   return (
     <div className="mt-[50px] z-10">
@@ -96,7 +97,7 @@ const Card = ({ value, temperature, status, city, date }) => {
           {status}
         </h2>
         <div className=" ml-[40px] mt-[20px] flex items-center gap-[68px]">
-          <HomeIcon />
+          <HomeIcon fill={`${homeIconColor}`} />
           <PinIcon />
           <HeartIcon />
           <UserIcon />

@@ -76,7 +76,7 @@ export default function Home() {
             />
           )}
         </div>
-        <div className="w-[50%] bg-[url('/Subtract.png')] bg-no-repeat bg-center h-screen flex justify-center items-center ml-[200px]">
+        <div className="w-[50%] bg-[url('/Subtract.png')] bg-no-repeat bg-cover bg-center h-screen flex justify-center items-center ml-[200px]">
           {nightTemp && (
             <Card
               value="night"
