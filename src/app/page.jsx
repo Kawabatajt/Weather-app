@@ -4,7 +4,7 @@ import { use, useEffect, useState } from "react";
 import { Card } from "@/components/Card";
 import { SearchButton } from "@/components/SearchButton";
 import { BackGroundCircle } from "@/components/BackGroundCircle";
-
+import { Manrope, Manrope } from "next/font/google";
 export default function Home() {
   const [search, setSearch] = useState("");
   const [city, setCity] = useState("ulaanbaatar");
