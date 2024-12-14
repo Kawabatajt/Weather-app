@@ -40,13 +40,13 @@ const Card = ({ value, temperature, status, city }) => {
     switch (status) {
       case "Sunny":
         return "sun-icon.png";
-      case "Overcast" || "Clouds":
+      case  "Cloudy":
         return "Day Clouds.png";
       case "Heavy rain" || "Light rain":
         return "Day Rain.png";
       case "Wind":
         return "Day Wind.png";
-      case "Snow":
+      case "Moderate Snow":
         return "Day Snow.png";
       case "Storm":
         return "Day Storm.png";
@@ -58,7 +58,7 @@ const Card = ({ value, temperature, status, city }) => {
     switch (status) {
       case "Clear":
         return "moon.png";
-      case "Cloudy":
+      case "Overcast":
         return "Night Clouds.png";
       case "Patchy light rain":
         return "Night Rain.png";
