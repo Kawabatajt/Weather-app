@@ -1,6 +1,6 @@
 const BackGroundCircle = () => {
   return (
-    <div className="absolute flex justify-center items-center ml-[100px] bottom-[590px]">
+    <div className="absolute flex justify-center items-center translate-x-[48px]">
       <div className="border rounded-full w-[140px] h-[140px] absolute opacity-10 border-black"></div>
       <div className="border rounded-full w-[140px] h-[140px] absolute opacity-10 border-white"></div>
       <div className="border rounded-full w-[340px] h-[340px] absolute opacity-10 border-black"></div>

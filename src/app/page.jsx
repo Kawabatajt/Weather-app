@@ -50,7 +50,7 @@ export default function Home() {
 
   return (
     <div className="w-screen h-full mx-auto bg-slate-800 relative flex justify-center items-center ">
-      <div className="w-3/4 h-screen mx-auto rounded-3xl bg-background-white flex justify-center gap-[100px] overflow-hidden relative">
+      <div className="w-3/4 h-screen mx-auto rounded-3xl bg-background-white flex justify-center gap-[100px] items-center overflow-hidden relative">
         <img
           className=" absolute right-[50%] bottom-[50%] translate-x-[50px] translate-y-12 w-[50px]"
           src="/logo-f.png"
@@ -60,7 +60,7 @@ export default function Home() {
           src="/logo-r.png"
         />
 
-        <div className="mt-[100px] ml-[140px] relative z-10">
+        <div className="ml-[140px] relative z-10">
           <SearchButton
             search={search}
             onChangeText={onChangeText}
@@ -76,7 +76,7 @@ export default function Home() {
             />
           )}
         </div>
-        <div className="w-[50%] bg-[url('/Subtract.png')] bg-no-repeat bg-cover bg-center h-screen flex justify-center items-center ml-[200px]">
+        <div className="w-[50%] bg-[url('/Subtract.png')] bg-no-repeat bg-cover bg-center h-screen flex justify-center items-center ml-[200px] pt-[10px]">
           {nightTemp && (
             <Card
               value="night"
