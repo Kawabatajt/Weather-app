@@ -59,11 +59,10 @@ const Card = ({ value, temperature, status, city }) => {
   const imageShadow =
     value === "night"
       ? "drop-shadow-[0px_5px_25px_rgba(255,255,255,0.5)]"
-      : "drop-shadow-[0px_5px_25px_rgba(0,0,0,0.5)]";
+      : "drop-shadow-[0px_5px_25px_rgba(255,214,10,0.5)]";
   const statusColor = value === "day" ? "text-[#FF8E27]" : "text-[#777CCE]";
   const dateColor = value === "day" ? "text-black" : "text-[#9CA3AF]";
   const homeIconColor = value === "day" ? "black" : "white";
-  console.log(value);
   return (
     <div className="mt-[50px] z-10">
       <div

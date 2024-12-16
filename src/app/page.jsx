@@ -8,7 +8,6 @@ import { Manrope, Manrope } from "next/font/google";
 export default function Home() {
   const [search, setSearch] = useState("");
   const [city, setCity] = useState("ulaanbaatar");
-
   const onChangeText = (event) => {
     setSearch(event.target.value);
   };
@@ -34,7 +33,6 @@ export default function Home() {
       .then((res) => res.json())
       .then((data) => {
         setData(data);
-        console.log(data);
         setDayTemp({
           temperature: data?.forecast?.forecastday[0].day.maxtemp_c,
           condition: data?.forecast?.forecastday[0].day.condition.text,
@@ -44,10 +42,8 @@ export default function Home() {
           temperature: data?.forecast?.forecastday[0].day.mintemp_c,
           condition: data?.forecast?.forecastday[0].hour[23].condition.text,
         });
-        console.log(data);
       });
   }, [city]);
-
   return (
     <div className="w-screen h-full mx-auto bg-slate-800 relative flex justify-center items-center ">
       <div className="w-3/4 h-screen mx-auto rounded-3xl bg-background-white flex justify-center gap-[100px] overflow-hidden relative">
@@ -65,6 +61,7 @@ export default function Home() {
             search={search}
             onChangeText={onChangeText}
             onPressEnter={onPressEnter}
+            data={data}
           />
           {dayTemp && (
             <Card
