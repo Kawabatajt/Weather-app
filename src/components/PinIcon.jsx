@@ -14,7 +14,7 @@ const PinIcon = () => {
         stroke="#D1D5DB"
         strokeWidth="2"
         strokeLinecap="round"
-        strokeLineJoin="round"
+        strokeLinejoin="round"
       />
       <circle
         cx="16.3335"
@@ -22,8 +22,8 @@ const PinIcon = () => {
         r="2"
         stroke="#D1D5DB"
         strokeWidth="2"
-        strokeLineCap="round"
-        strokeLineJoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
