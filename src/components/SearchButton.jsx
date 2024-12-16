@@ -4,7 +4,7 @@ import { Manrope } from "next/font/google";
 const manrope = Manrope({ subsets: ["latin"] });
 // import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
-const DropDown = ({ value, data }) => {
+const DropDown = ({ value, data, click, setClick }) => {
   return (
     <div className="absolute left-0 z-10 mt-[160px] rounded-xl w-[400px] h-[100px] bg-white shadow-lg origin-top-left pl-3 pt-3  overflow-y-auto">
       {data.map((country) =>
@@ -15,7 +15,13 @@ const DropDown = ({ value, data }) => {
               key={id}
               className={`flex gap-3 ${manrope.className} font-bold`}
             >
-              <h1>{name}</h1>
+              <h1
+                onClick={() => {
+                  setClick(name);
+                }}
+              >
+                {name}
+              </h1>
               <h2>{country.country}</h2>
             </div>
           ))
@@ -24,6 +30,7 @@ const DropDown = ({ value, data }) => {
   );
 };
 const SearchButton = ({ search, onChangeText, onPressEnter, data }) => {
+  const [click, setClick] = useState();
   const [isFocused, setIsFocused] = useState(false);
   const [cityData, setCityData] = useState([]);
   useEffect(() => {
@@ -52,7 +59,14 @@ const SearchButton = ({ search, onChangeText, onPressEnter, data }) => {
         placeholder="Search"
         onKeyDown={onPressEnter}
       ></input>
-      {isFocused && <DropDown value={search} data={cityData} />}
+      {isFocused && (
+        <DropDown
+          value={search}
+          data={cityData}
+          click={click}
+          setClick={setClick}
+        />
+      )}
     </div>
   );
 };
