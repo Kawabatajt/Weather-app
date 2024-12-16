@@ -5,7 +5,9 @@ import { PinIcon } from "./PinIcon";
 import { HeartIcon } from "./HeartIcon";
 import { UserIcon } from "./UserIcon";
 const manrope = Manrope({ subsets: ["latin", "greek"] });
-const Card = ({ value, temperature, status, city, date }) => {
+const Card = ({ value, temperature, status, city }) => {
+  const d = new Date();
+  let date = d.toDateString();
   const backgroundColor = value === "day" ? "bg-white" : "bg-[#111827BF]";
   const getDayImage = (status) => {
     if (status.includes("snow")) {
