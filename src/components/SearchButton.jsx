@@ -4,15 +4,21 @@ import { Manrope } from "next/font/google";
 const manrope = Manrope({ subsets: ["latin"] });
 // import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
-const DropDown = ({ value, data }) => {
+const DropDown = ({ value, data, setCity, setIsFocused }) => {
   return (
     <div className="absolute left-0 z-10 mt-[160px] rounded-xl w-[400px] h-[100px] bg-white shadow-lg origin-top-left pl-3 pt-3  overflow-y-auto">
       {!value == "" &&
         data.map((country) =>
           country.cities
             .filter((r) => r.toLowerCase().includes(value.toLowerCase()))
+            .slice(0, 10)
             .map((name, id) => (
               <div
+                onClick={() => {
+                  console.log(name);
+                  setCity(name);
+                  setIsFocused(false);
+                }}
                 key={id}
                 className={`flex gap-3 ${manrope.className} font-bold`}
               >
@@ -24,7 +30,7 @@ const DropDown = ({ value, data }) => {
     </div>
   );
 };
-const SearchButton = ({ search, onChangeText, onPressEnter, data }) => {
+const SearchButton = ({ search, onChangeText, onPressEnter, setCity }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [cityData, setCityData] = useState([]);
   useEffect(() => {
@@ -43,9 +49,6 @@ const SearchButton = ({ search, onChangeText, onPressEnter, data }) => {
         onFocus={() => {
           setIsFocused(true);
         }}
-        onBlur={() => {
-          setIsFocused(false);
-        }}
         className="focus:outline-0"
         type="text"
         onChange={onChangeText}
@@ -53,7 +56,14 @@ const SearchButton = ({ search, onChangeText, onPressEnter, data }) => {
         placeholder="Search"
         onKeyDown={onPressEnter}
       ></input>
-      {isFocused && <DropDown value={search} data={cityData} />}
+      {isFocused && (
+        <DropDown
+          value={search}
+          data={cityData}
+          setCity={setCity}
+          setIsFocused={setIsFocused}
+        />
+      )}
     </div>
   );
 };

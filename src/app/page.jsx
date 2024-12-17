@@ -16,6 +16,7 @@ export default function Home() {
       setCity(search);
     }
   };
+
   const [data, setData] = useState();
   const [dayTemp, setDayTemp] = useState({
     temperature: 0,
@@ -44,6 +45,16 @@ export default function Home() {
         });
       });
   }, [city]);
+  const [cityData, setCityData] = useState([]);
+  useEffect(() => {
+    fetch("https://countriesnow.space/api/v0.1/countries")
+      .then((res) => res.json())
+      .then((data) => {
+        setCityData(data?.data?.flatMap((country) => country?.cities || []));
+      });
+  }, []);
+  console.log(cityData);
+
   return (
     <div className="w-screen h-full mx-auto bg-slate-800 relative flex justify-center items-center ">
       <div className="w-3/4 h-screen mx-auto rounded-3xl bg-background-white flex justify-center gap-[100px] overflow-hidden relative">
@@ -61,7 +72,8 @@ export default function Home() {
             search={search}
             onChangeText={onChangeText}
             onPressEnter={onPressEnter}
-            data={data}
+            setCity={setCity}
+            cityData={cityData}
           />
           {dayTemp && (
             <Card
@@ -73,7 +85,7 @@ export default function Home() {
             />
           )}
         </div>
-        <div className="w-[50%] bg-[url('/Subtract.png')] bg-no-repeat bg-cover bg-center h-screen flex justify-center items-center ml-[200px]">
+        <div className="w-[50%] bg-[url('/Subtract.png')] bg-no-repeat bg-cover bg-center h-screen flex justify-center items-center ml-[200px] pt-[100px]">
           {nightTemp && (
             <Card
               value="night"
